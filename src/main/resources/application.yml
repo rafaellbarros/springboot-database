@@ -1,0 +1,19 @@
+# Datasource connection properties
+spring:
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521)))(CONNECT_DATA=(SID=ORASID)))}
+    username: ${DATASOURCE_USERNAME:sys as sysdba}
+    password: ${DATASOURCE_PASSWORD:admin123}
+    driver-class-name: ${DATASOURCE_DRIVE:oracle.jdbc.driver.OracleDriver}
+  jpa:
+    database-platform: org.hibernate.dialect.Oracle12cDialect
+    hibernate:
+      ddl-auto: ${DLL_AUTO:update}
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+
+server:
+  port: ${SERVER_PORT:8080}
