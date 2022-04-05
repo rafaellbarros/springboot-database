@@ -23,8 +23,13 @@ public class DevController {
     private final DevService service;
 
     @GetMapping("/{categoria}")
-    public ResponseEntity<?> dev(@PathVariable final String categoria) throws SQLException {
+    public ResponseEntity<?> dev(@PathVariable final String categoria) {
         return ResponseEntity.ok(service.dev(categoria));
+    }
+
+    @GetMapping("/teste/{categoria}")
+    public ResponseEntity<?> teste(@PathVariable final String categoria) {
+        return ResponseEntity.ok(service.teste(categoria));
     }
 
 }

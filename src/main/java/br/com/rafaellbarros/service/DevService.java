@@ -9,7 +9,6 @@ import org.hibernate.internal.SessionImpl;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -36,8 +35,12 @@ public class DevService {
         return entityManager.unwrap(SessionImpl.class).connection();
     }
 
-    @Transactional
-    public List<Resultado> dev(String categoria) throws SQLException {
+    public List<?> teste(String categoria) {
+        final List<Object[]> allCarros = carroRepository.buscarTodos(categoria);
+        return allCarros;
+    }
+
+    public List<Resultado> dev(String categoria) {
 
         final List<Resultado> resultados = new ArrayList<>();
 
@@ -58,8 +61,11 @@ public class DevService {
             }
 
         } catch (SQLException e) {
-            log.error("Erro executar a function: {}", e.getMessage());
+            log.error("SQLState: {}, \nErro executar a function: {}", e.getSQLState(), e.getMessage());
             e.printStackTrace();
+        } catch (Exception ex) {
+            log.error("Erro: {}", ex.getMessage());
+            ex.printStackTrace();
         }
         return resultados;
     }
