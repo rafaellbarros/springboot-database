@@ -41,5 +41,20 @@ BEGIN
     DBMS_OUTPUT.put_line (result);
 END;
 
+DECLARE
+emp_refcur_local SYS_REFCURSOR;
+  placa VARCHAR2(100);
+  chassi VARCHAR2(100);
+  categoria VARCHAR2(100);
+BEGIN
+  --Calling the function using parameters
+  emp_refcur_local := XABLAU.PKG_DEVELOPER.FNC_BUSCAR_TODOS_CARROS_POR_CATEGORIA('HATCH_MEDIO');
+  LOOP
+FETCH emp_refcur_local into placa,chassi,categoria;
+    EXIT WHEN  emp_refcur_local%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE('Xablau Placa: '||placa||' / Chassi: '||chassi|| '/ Categoria: '||categoria);
+END LOOP;
+END;
+
 
 
